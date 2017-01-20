@@ -1,3 +1,9 @@
+<?php include 'database.php'; ?>
+<?php
+	//Create Select Query
+	$query = "SELECT * FROM chats ORDER BY id DESC";
+	$chats = mysqli_query($conn, $query);
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -13,19 +19,22 @@
 				<h1>JS Chatbox</h1>
 			</header>
 
-			<dir id="chats">
+			<div id="chats">
 				<ul>
-					<li></li>
+					<?php while($row = mysqli_fetch_assoc($chats)) : ?>
+						<li><?php echo $row['name']; ?>: <?php echo $row['chat']; ?> (<?php echo $row['date']; ?>)</li>
+				<?php endwhile; ?>
 				</ul>
-			</dir>
+			</div>
 
 			<footer>
 				<form>
 					<label>Name: </label>
 					<input type="text" id="name">
+
 					<label>Chat Text</label>
 					<input type="text" id="chat">
-					<input type="submit" id="submit" value="CHAT!">
+					<input type="submit" id="submit" value="SEND">
 				</form>
 			</footer>
 		</div>
